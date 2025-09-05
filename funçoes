@@ -1,0 +1,66 @@
+do {
+    opcao = prompt(
+      "Escolha uma opção:\n1 - Adicionar Tarefa\n2 - Listar Tarefas\n3 - Remover Tarefa\n4 - Atualizar Tarefa\n5 - Concluir Tarefa\n0 - Sair"
+    );
+
+    switch (opcao) {
+      case "1":
+        let novaTarefa = prompt("Digite a nova tarefa:");
+        gerenciarTarefa(() => adicionarTarefa(novaTarefa));
+        break;
+
+      case "2":
+        gerenciarTarefa(listarTarefas);
+        break;
+
+      case "3":
+        let indiceRemover = prompt("Digite o índice da tarefa para remover:");
+        gerenciarTarefa(() => {
+          if (tarefas[indiceRemover]) {
+            console.log(`Tarefa removida: "${tarefas[indiceRemover].nome}"`);
+            tarefas.splice(indiceRemover, 1);
+          } else {
+            console.log("Índice inválido!");
+          }
+        });
+        break;
+
+      case "4":
+        let indiceAtualizar = prompt("Digite o índice da tarefa para atualizar:");
+        let novoNome = prompt("Digite o novo nome da tarefa:");
+        gerenciarTarefa(() => {
+          if (tarefas[indiceAtualizar]) {
+            console.log(
+              `Tarefa atualizada de "${tarefas[indiceAtualizar].nome}" para "${novoNome}"`
+            );
+            tarefas[indiceAtualizar].nome = novoNome;
+          } else {
+            console.log("Índice inválido!");
+          }
+        });
+        break;
+
+      case "5":
+        let indiceConcluir = prompt("Digite o índice da tarefa para concluir:");
+        gerenciarTarefa(() => {
+          if (tarefas[indiceConcluir]) {
+            tarefas[indiceConcluir].concluida = true;
+            console.log(`Tarefa concluída: "${tarefas[indiceConcluir].nome}"`);
+          } else {
+            console.log("Índice inválido!");
+          }
+        });
+        break;
+
+      case "0":
+        console.log("Saindo do programa...");
+        break;
+
+      default:
+        console.log("Opção inválida!");
+    }
+  } while (opcao !== "0");
+}
+
+// Executa o menu
+menu();
